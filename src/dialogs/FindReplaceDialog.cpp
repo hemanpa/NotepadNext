@@ -241,7 +241,9 @@ void FindReplaceDialog::updateReplaceList(const QString &text)
 
 void FindReplaceDialog::find()
 {
-    performFind(ui->checkBoxBackwardsDirection->isChecked() ? SearchDirection::Backwards : SearchDirection::Forwards);
+    // The checkbox stays checked but is disabled for regex searches, which only search forwards
+    const bool backwards = ui->checkBoxBackwardsDirection->isEnabled() && ui->checkBoxBackwardsDirection->isChecked();
+    performFind(backwards ? SearchDirection::Backwards : SearchDirection::Forwards);
 }
 
 void FindReplaceDialog::performFind(SearchDirection direction)
